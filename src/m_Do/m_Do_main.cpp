@@ -712,6 +712,8 @@ int game_main(int argc, char* argv[]) {
         // Two pipeline compile threads, not the four Aurora picks for the console's six: the vulkan4xenon backend
         // creates one pipeline at a time, under one lock (aurora-xenon:lib/vulkan4xenon/pipeline.cpp), so more wait.
         config.pipelineJobs = 2;
+        // The EFB's samples, CMake's DUSK_XSDK_MSAA: 1 unless a measurement build asks for 2 or 4.
+        config.msaa = DUSK_XSDK_MSAA;
 #else
         const int lastWindowWidth = dusk::getSettings().video.lastWindowWidth.getValue();
         const int lastWindowHeight = dusk::getSettings().video.lastWindowHeight.getValue();
