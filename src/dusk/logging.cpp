@@ -40,7 +40,13 @@ bool divert_stub_messages(const borealis::log::Message& message) {
 void dusk::InitializeLogging(
     const std::filesystem::path& cacheDir, const borealis::cli::StandardOptions& standard) {
     borealis::log::Options options{};
+#ifdef __XSDK__
+    // On the Xbox 360 each line is a write to the hard disk, about 0.45 ms (xsdk_test's log check), and loading a
+    // scene logged hundreds of debug lines on the game's thread.
+    options.level = borealis::LogLevel::Info;
+#else
     options.level = borealis::LogLevel::Debug;
+#endif
     options.fileDirectory = cacheDir.empty() ? std::filesystem::path{} : cacheDir / "logs";
     options.filePrefix = "dusklight";
     options.legacyFilePrefixes = {"dusk"};
