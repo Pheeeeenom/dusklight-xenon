@@ -29,6 +29,7 @@
 #endif
 
 #ifdef __XSDK__
+#include <SDL3/SDL_hints.h>
 #include <malloc.h>
 #include <xsdk/kernel.h>
 #include <xsdk/log.h>
@@ -234,6 +235,9 @@ constexpr uint32_t PagesPerMB = 1024 * 1024 / 4096;
 // The Xbox 360's start (vulkan4xenon milestone 9): the splash, then the game's memory.
 void XenonStart() {
     xsdk_log_write("dusklight: started, with the game linked and its static constructors run");
+    // SDL's audio device thread runs the game's audio DSP: on hardware thread 5, beside Aurora's
+    // render worker, off the main thread's 0 (vulkan4xenon:docs/ROADMAP.md, milestone 34).
+    SDL_SetHint(SDL_HINT_AUDIO_XSDK_HARDWARE_THREAD, "5");
     if (const NTSTATUS status = xsdk_splash_show(SplashMs); !NT_SUCCESS(status)) {
         xsdk_log_write("dusklight: xsdk_splash_show failed: 0x%08X", static_cast<unsigned>(status));
     }
