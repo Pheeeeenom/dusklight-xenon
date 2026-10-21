@@ -1,3 +1,48 @@
+# Dusklight on the Xbox 360 (beta)
+
+> [!NOTE]
+> This is [xenosworks/dusklight-xenon](https://github.com/xenosworks/dusklight-xenon), a port of Dusklight to the
+> Xbox 360. Dusklight's team doesn't make or support it, so report its problems here, not to them. Dusklight's own
+> README follows below the line, unchanged.
+
+Dusklight runs on the Xbox 360 as a homebrew title, built with [xsdk](https://github.com/xenosworks/xsdk) and drawn
+through [vulkan4xenon](https://github.com/xenosworks/vulkan4xenon) at 1280x720 with 4 samples of multisampling.
+[docs/README-xsdk.md](docs/README-xsdk.md) says how it's built and what the port changes.
+
+### What you need
+
+- An RGH or JTAG Xbox 360. The title isn't signed, so a retail console won't start it.
+- `dusklight.xex` and the `res` folder that comes with it, from this repository's
+  [releases](https://github.com/xenosworks/dusklight-xenon/releases).
+- Your own copy of the US GameCube disc, GZ2E01, dumped as a plain disc image and named `dusklight.iso` ("Dump your
+  game" below says how). Compressed images such as RVZ aren't read on the Xbox 360, nor are Wii discs; Dolphin or
+  nodtool turns an RVZ back into an ISO.
+
+Put all three in one folder on the console's hard disk, by FTP for example, and start `dusklight.xex` from your
+dashboard. To quit, press the Guide button and choose Xbox Home.
+
+### Saves and settings
+
+They're kept in `TwilitRealm\Dusklight\` in that folder: the settings in `config.json`, the memory card's saves in
+`USA\Card A\` as `.gci` files, and the shaders the console has compiled in `shaders\`. Back that folder up to keep
+your saves.
+
+### Known limits of the beta
+
+- Dusklight's own menu, which Back opens, isn't drawn yet, but it still opens and takes the controller. If the game
+  stops answering the controller, press Back again to close it.
+- The first visit to an area may show things popping in while the console compiles shaders it hasn't needed before.
+  They're kept, so later visits don't.
+- Ordon runs at about 28 to 30 fps.
+
+### Reporting a problem
+
+Open an issue with the
+[problem report form](https://github.com/xenosworks/dusklight-xenon/issues/new?template=bug-report.yml): what went
+wrong and where, whether it happens every time and how to make it happen, and your save if you can.
+
+---
+
 <div align="center">
   <img src="res/logo.png" alt="Logo" width="640">
 
