@@ -79,9 +79,9 @@ if (XSDK)
   # null backend, and writes each pipeline's GLSL beside the title.
   option(DUSK_XSDK_RECORD_GLSL "Draw nothing and record each pipeline's GLSL, for the Xbox 360's shader pack" OFF)
   option(DUSK_XSDK_GLSL_PACK "Link the shader pack; without it, every program is compiled on the console" ON)
-  # The EFB's samples (aurora-xenon:lib/vulkan4xenon/device.cpp, pick_efb_samples): 1 unless 2 holds the title scene
-  # and Ordon at 29.5 fps or better (xsdk:docs/scope/44-tiling-and-msaa.md, step 5); measurement builds set 2 or 4.
-  set(DUSK_XSDK_MSAA 1 CACHE STRING "The EFB's samples on the Xbox 360: 1, 2 or 4")
+  # The EFB's samples (aurora-xenon:lib/vulkan4xenon/device.cpp, pick_efb_samples): 4, as Ordon ran as fast at 4 as at
+  # 1 and 2 once tiled passes stopped waiting for the GPU (vulkan4xenon:docs/ROADMAP.md, milestone 30).
+  set(DUSK_XSDK_MSAA 4 CACHE STRING "The EFB's samples on the Xbox 360: 1, 2 or 4")
   if (DUSK_XSDK_RECORD_GLSL)
     set(AURORA_GFX_BACKEND null CACHE STRING "What draws GX" FORCE)
     set(AURORA_GLSL_RECORD_DIR "game:/shaders" CACHE STRING "Where the null backend records GLSL" FORCE)
