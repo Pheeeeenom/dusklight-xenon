@@ -33,7 +33,7 @@ your saves.
   stops answering the controller, press Back again to close it.
 - The first visit to an area may show things popping in while the console compiles shaders it hasn't needed before.
   They're kept, so later visits don't.
-- Ordon runs at about 28 to 30 fps.
+- Ordon runs at about 27 to 30 fps.
 
 ### Reporting a problem
 
