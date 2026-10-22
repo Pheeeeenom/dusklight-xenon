@@ -241,9 +241,13 @@ bool MenuBar::visible() const {
 }
 
 bool MenuBar::handle_nav_command(Rml::Event& event, NavCommand cmd) {
+#ifndef __XSDK__
     if (!getSettings().backend.wasPresetChosen) {
         return true;
     }
+#else
+    // The Xbox 360 never shows the preset window (m_Do/m_Do_main.cpp), so its menu doesn't wait for a preset.
+#endif
     if (cmd == NavCommand::Cancel && visible()) {
         mDoAud_seStartMenu(kSoundMenuClose);
         hide(false);

@@ -24,6 +24,8 @@ public:
 
     static bool CheckMenuViewToggle(ImGuiKey key, bool& active);
 
+    ImGuiMenuTools& MenuTools() { return m_menuTools; }
+
 private:
 
     bool m_isHidden = true;

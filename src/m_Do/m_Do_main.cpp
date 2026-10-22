@@ -423,7 +423,12 @@ static AuroraBackend ResolveDesiredBackend(const cxxopts::ParseResult& parsedArg
 
 static void aurora_imgui_init_callback(const AuroraWindowSize* size) {
     dusk::ImGuiEngine_Initialize(size->scale);
+#ifndef __XSDK__
     dusk::ImGuiEngine_AddTextures();
+#else
+    // The logos are drawn only by the null backend's window (imgui/ImGuiConsole.cpp), and as textures would hold 5.4 MB
+    // of the console's memory.
+#endif
 }
 
 static void ApplyCVarOverrides(const cxxopts::OptionValue& option) {

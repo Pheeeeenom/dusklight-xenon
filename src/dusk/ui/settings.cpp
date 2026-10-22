@@ -19,6 +19,7 @@
 #include "dusk/data.hpp"
 #include "dusk/discord_presence.hpp"
 #include "dusk/hotkeys.h"
+#include "dusk/imgui/ImGuiConsole.hpp"
 #include "dusk/imgui/ImGuiEngine.hpp"
 #include "dusk/language.hpp"
 #include "dusk/livesplit.h"
@@ -344,6 +345,21 @@ const Rml::String kUnlockFramerateHelpText =
     "visual artifacts or animation glitches.";
 const Rml::String kTextureReplacementHelpText =
     "Enable installed texture replacements.";
+
+#ifdef __XSDK__
+// ImGui's display-only tools, which a controller can't open: the console passes ImGui no input.
+struct DebugOverlay {
+    const char* name;
+    bool& (*shown)();
+};
+
+constexpr std::array<DebugOverlay, 4> kDebugOverlays{{
+    {"Debug Overlay", []() -> bool& { return g_imguiConsole.MenuTools().debugOverlay(); }},
+    {"Player Info", []() -> bool& { return g_imguiConsole.MenuTools().playerInfo(); }},
+    {"Camera Debug", []() -> bool& { return g_imguiConsole.MenuTools().cameraOverlay(); }},
+    {"Heaps", []() -> bool& { return g_imguiConsole.MenuTools().heapOverlay(); }},
+}};
+#endif
 
 int float_setting_percent(ConfigVar<float>& var) {
     return static_cast<int>(var.getValue() * 100.0f + 0.5f);
@@ -1609,9 +1625,14 @@ SettingsWindow::SettingsWindow(bool prelaunch) : mPrelaunch(prelaunch) {
             {
                 .key = "Enable Advanced Settings",
                 .icon = "warning",
-                .helpText = "Show advanced settings and debugging tools with "
-                            "Shift+F1.<br/><br/><icon class=\"warning\"/> WARNING: Debugging tools "
-                            "can easily break your game. Do not use on a regular save!",
+                .helpText =
+#ifdef __XSDK__
+                    "Show advanced settings, and debugging tools under Debug Overlays."
+#else
+                    "Show advanced settings and debugging tools with Shift+F1."
+#endif
+                    "<br/><br/><icon class=\"warning\"/> WARNING: Debugging tools can easily "
+                    "break your game. Do not use on a regular save!",
                 .onChange = [](bool) { MenuBar::refresh_tabs(); },
                 .isDisabled = [] { return speedrun::isActive(); },
             });
@@ -1626,6 +1647,33 @@ SettingsWindow::SettingsWindow(bool prelaunch) : mPrelaunch(prelaunch) {
                 .helpText = "Show gyro sensor values in the input viewer.",
                 .isDisabled = [] { return !getSettings().game.showInputViewer; },
             });
+#ifdef __XSDK__
+        // Not saved, as the PC's ImGui menu doesn't save them (imgui/ImGuiMenuTools.cpp).
+        leftPane.register_control(
+            leftPane.add_select_button({
+                .key = "Debug Overlays",
+                .getValue =
+                    [] {
+                        const auto shown = std::ranges::count_if(kDebugOverlays,
+                            [](const DebugOverlay& overlay) { return overlay.shown(); });
+                        return shown == 0 ? Rml::String{"Off"} : fmt::format("{} on", shown);
+                    },
+                .isDisabled = [] { return !getSettings().backend.enableAdvancedSettings; },
+            }),
+            rightPane, [](Pane& pane) {
+                for (const DebugOverlay& overlay : kDebugOverlays) {
+                    pane.add_button({
+                                        .text = overlay.name,
+                                        .isSelected = [&overlay] { return overlay.shown(); },
+                                    })
+                        .on_pressed([&overlay] {
+                            mDoAud_seStartMenu(kSoundItemChange);
+                            overlay.shown() = !overlay.shown();
+                        });
+                }
+                pane.add_rml("<br/>Show ImGui's debugging overlays while playing.");
+            });
+#endif
         leftPane.add_section("Game");
         leftPane.register_control(
             leftPane.add_select_button({

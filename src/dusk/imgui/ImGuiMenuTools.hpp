@@ -25,6 +25,12 @@ namespace dusk {
         void ShowInputViewer();
         void ShowActorSpawner();
 
+        // The display-only overlays, which the Xbox 360's menu toggles (ui/settings.cpp, Debug Overlays).
+        bool& debugOverlay() { return m_showDebugOverlay; }
+        bool& playerInfo() { return m_showPlayerInfo; }
+        bool& cameraOverlay() { return m_showCameraOverlay; }
+        bool& heapOverlay() { return m_showHeapOverlay; }
+
     private:
 		bool m_showDebugOverlay = false;
 		int m_debugOverlayCorner = 2; // bottom-left
