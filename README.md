@@ -29,8 +29,6 @@ your saves.
 
 ### Known limits of the beta
 
-- Dusklight's own menu, which Back opens, isn't drawn yet, but it still opens and takes the controller. If the game
-  stops answering the controller, press Back again to close it.
 - The first visit to an area may show things popping in while the console compiles shaders it hasn't needed before.
   They're kept, so later visits don't.
 - Ordon runs at about 27 to 30 fps.

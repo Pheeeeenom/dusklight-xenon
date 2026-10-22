@@ -77,4 +77,5 @@ python3 extern/aurora/tools/build_glsl_pack.py --vulkan4xenon <vulkan4xenon> --x
 ## What's drawn
 
 What Aurora's vulkan4xenon backend draws and what it skips is in aurora-xenon's `docs/README-xsdk.md`. Dusklight's
-menus and Aurora's ImGui overlay aren't drawn yet; vulkan4xenon's milestone 16 is to draw the menus.
+menus and Aurora's ImGui overlay are drawn since vulkan4xenon's milestone 16; with advanced settings on, the Interface
+tab's Debug Overlays option shows ImGui's debug overlays.
