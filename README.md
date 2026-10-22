@@ -12,32 +12,43 @@ through [vulkan4xenon](https://github.com/xenosworks/vulkan4xenon) at 1280x720 w
 ### What you need
 
 - An RGH or JTAG Xbox 360. The title isn't signed, so a retail console won't start it.
-- `dusklight.xex` and the `res` folder that comes with it, from this repository's
-  [releases](https://github.com/xenosworks/dusklight-xenon/releases).
-- Your own copy of the US GameCube disc, GZ2E01, dumped as a plain disc image and named `dusklight.iso` ("Dump your
-  game" below says how). Compressed images such as RVZ aren't read on the Xbox 360, nor are Wii discs; Dolphin or
-  nodtool turns an RVZ back into an ISO.
+- `dusklight.xex` and the `res` folder it needs, both in the zip on this repository's
+  [releases](https://github.com/xenosworks/dusklight-xenon/releases) page.
+- Your own copy of the US GameCube disc, GZ2E01, as a plain, full-size ISO named `dusklight.iso`: 1,459,978,240 bytes
+  ("Dump your game" below says how). It isn't included.
+
+  **Don't use `.ciso`, `.rvz` or any other compressed or trimmed image.** The Xbox 360 reads only a plain ISO, and
+  Wii discs aren't read either. To convert yours, open it in [Dolphin](https://dolphin-emu.org/): right-click the game
+  in Dolphin's list, choose **Convert File...**, set **Format** to **ISO**, and convert. Rename the result
+  `dusklight.iso`.
 
 Put all three in one folder on the console's hard disk, by FTP for example, and start `dusklight.xex` from your
 dashboard. To quit, press the Guide button and choose Xbox Home.
 
 ### Saves and settings
 
-They're kept in `TwilitRealm\Dusklight\` in that folder: the settings in `config.json`, the memory card's saves in
-`USA\Card A\` as `.gci` files, and the shaders the console has compiled in `shaders\`. Back that folder up to keep
-your saves.
+They're kept in `TwilitRealm\Dusklight\` in that folder, which the game makes on its first run: the settings in
+`config.json`, the memory card's saves in `USA\Card A\` as `.gci` files, and the shaders the console has compiled in
+`shaders\`. Back that folder up to keep your saves.
+
+**Expect pop-in at first.** Many of the game's shaders come built into `dusklight.xex`, but the rest are compiled on
+the console the first time an area needs them, so on your first runs things pop in while that happens. Each one is
+kept in `TwilitRealm\Dusklight\shaders\` once compiled, so it's only compiled once and later visits don't pop in.
 
 ### Known limits of the beta
 
-- The first visit to an area may show things popping in while the console compiles shaders it hasn't needed before.
-  They're kept, so later visits don't.
+- **Leave Unlock Framerate off** (Settings, Video, Rendering). It's off unless you turn it on. With it on, the game
+  draws up to 60 frames a second, about twice what the Xbox 360 can keep up with: the frame rate falls into the teens,
+  worst on Epona in Ordon, and in our testing the game froze after a while. Turning it off brings the frame rate back.
+- Pop-in on the first visit to an area, while its shaders compile (above).
 - Ordon runs at about 27 to 30 fps.
 
 ### Reporting a problem
 
 Open an issue with the
 [problem report form](https://github.com/xenosworks/dusklight-xenon/issues/new?template=bug-report.yml): what went
-wrong and where, whether it happens every time and how to make it happen, and your save if you can.
+wrong and where, whether it happens every time and how to make it happen, and your save if you can. Say whether
+Unlock Framerate was on.
 
 ---
 
