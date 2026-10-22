@@ -19,6 +19,14 @@ body:
     required: true
 
 - type: upload
+  id: log-file
+  attributes:
+    label: "If it crashed or froze, share dusklight.log:"
+    description: >-
+      dusklight.log is in the folder with dusklight.xex. Each start of the game replaces it, so copy it before you start
+      the game again, then add it here.
+
+- type: upload
   id: save-file
   attributes:
     label: "If possible, share your save file:"

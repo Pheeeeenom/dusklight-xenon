@@ -11,7 +11,8 @@ through [vulkan4xenon](https://github.com/xenosworks/vulkan4xenon) at 1280x720 w
 
 ### What you need
 
-- An RGH or JTAG Xbox 360. The title isn't signed, so a retail console won't start it.
+- An RGH or JTAG Xbox 360. Testers report it runs under BadUpdate too, which we haven't tested ourselves. The title
+  isn't signed, so a console without one of these won't start it.
 - `dusklight.xex` and the `res` folder it needs, both in the zip on this repository's
   [releases](https://github.com/xenosworks/dusklight-xenon/releases) page.
 - Your own copy of the US GameCube disc, GZ2E01, as a plain, full-size ISO named `dusklight.iso`: 1,459,978,240 bytes
@@ -49,6 +50,9 @@ Open an issue with the
 [problem report form](https://github.com/xenosworks/dusklight-xenon/issues/new?template=bug-report.yml): what went
 wrong and where, whether it happens every time and how to make it happen, and your save if you can. Say whether
 Unlock Framerate was on.
+
+If the game crashed or froze, attach `dusklight.log` too. It's in the folder with `dusklight.xex`, and it says where
+the game stopped. Each start of the game replaces it, so copy it before you start the game again.
 
 ---
 
