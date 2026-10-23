@@ -862,7 +862,14 @@ int mDoMch_Create() {
 #endif
     archiveHeapSize *= 2;
     j2dHeapSize *= 2;
+#ifdef __XSDK__
+    // The Xbox 360's pointers are 32-bit, as the GameCube's are. Its game heap peaked at 18,836 KB on the console
+    // over the title, 100 stage changes and Faron Woods, so 8 times the GameCube's 4,408 KB keeps 16 MB spare; 20
+    // times held 69 MB that were never handed out, which long play then ran short of.
+    gameHeapSize *= 8;
+#else
     gameHeapSize *= 20; // NOTE: increased from 2 to 20 to try to solve heap alloc crashes. maybe do a better fix later
+#endif
 #endif
 
     JFWSystem::setSysHeapSize(arenaSize);
