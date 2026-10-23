@@ -1244,6 +1244,11 @@ SettingsWindow::SettingsWindow(bool prelaunch) : mPrelaunch(prelaunch) {
             "Scales the size of the gameplay HUD (hearts, buttons, mini-map, etc.). Does not affect dialog boxes or menus.",
             50, 200, 5,
             [] { return getSettings().game.minimalHUD.getValue(); });
+#ifdef __XSDK__
+        addOption("Xbox 360 Button Prompts", getSettings().game.xbox360ButtonPrompts,
+            "Shows the Xbox 360 controller's buttons in the game's prompts, as its default map "
+            "lays them out, in place of the GameCube's.<br/><br/>Changes require a restart.");
+#endif
         addOption("Restore Wii 1.0 Glitches", getSettings().game.restoreWiiGlitches,
             "Restores patched glitches from Wii USA 1.0, the first released version.");
         addOption("Enable Rotating Link Doll", getSettings().game.enableLinkDollRotation,

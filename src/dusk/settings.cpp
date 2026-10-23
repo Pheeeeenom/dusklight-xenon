@@ -66,6 +66,9 @@ UserSettings g_userSettings = {
         // Preferences
         .enableMirrorMode {"game.enableMirrorMode", false},
         .minimalHUD {"game.minimalHUD", false},
+#ifdef __XSDK__
+        .xbox360ButtonPrompts {"game.xbox360ButtonPrompts", true},
+#endif
         .hudScale {"game.hudScale", 1.0f},
         .pauseOnFocusLost {"game.pauseOnFocusLost", false},
         .enableLinkDollRotation {"game.enableLinkDollRotation", false},
@@ -309,6 +312,9 @@ void registerSettings() {
     Register(g_userSettings.game.touchCameraXSensitivity);
     Register(g_userSettings.game.touchCameraYSensitivity);
     Register(g_userSettings.game.minimalHUD);
+#ifdef __XSDK__
+    Register(g_userSettings.game.xbox360ButtonPrompts);
+#endif
     Register(g_userSettings.game.hudScale);
     Register(g_userSettings.game.pauseOnFocusLost,
         [](const bool& value, const bool&) { aurora_set_pause_on_focus_lost(value); });

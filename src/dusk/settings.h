@@ -231,6 +231,9 @@ struct UserSettings {
         // Preferences
         ConfigVar<bool> enableMirrorMode;
         ConfigVar<bool> minimalHUD;
+#ifdef __XSDK__
+        ConfigVar<bool> xbox360ButtonPrompts;
+#endif
         ConfigVar<float> hudScale;
         ConfigVar<bool> pauseOnFocusLost;
         ConfigVar<bool> enableLinkDollRotation;

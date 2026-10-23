@@ -9,6 +9,9 @@
 #include <types.h>
 
 #include "helpers/string.hpp"
+#ifdef __XSDK__
+#include "dusk/xbox_prompts.hpp"
+#endif
 
 J2DMaterialFactory::J2DMaterialFactory(J2DMaterialBlock const& param_0) {
     mMaterialNum = param_0.field_0x8;
@@ -176,6 +179,9 @@ J2DMaterial* J2DMaterialFactory::create(J2DMaterial* param_0, int index, u32 par
             param_0->getTevBlock()->setIndTevStage(i, newIndTevStage(index, i));
         }
     }
+#ifdef __XSDK__
+    dusk::xbox_prompts::tint(param_0);
+#endif
     return param_0;
 }
 

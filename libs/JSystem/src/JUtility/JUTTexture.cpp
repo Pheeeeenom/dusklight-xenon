@@ -7,6 +7,9 @@
 #include "dusk/logging.h"
 
 #include "JSystem/JKernel/JKRHeap.h"
+#ifdef __XSDK__
+#include "dusk/xbox_prompts.hpp"
+#endif
 
 JUTTexture::~JUTTexture() {
     if (getCaptureFlag()) {
@@ -19,6 +22,9 @@ JUTTexture::~JUTTexture() {
 
 void JUTTexture::storeTIMG(ResTIMG const* param_0, u8 param_1) {
     if (param_0 && param_1 < 0x10) {
+#ifdef __XSDK__
+        dusk::xbox_prompts::patch(param_0);
+#endif
         mTexInfo = param_0;
         s32 imgOffset = mTexInfo->imageOffset;
         mTexData = (void*)((intptr_t)mTexInfo + imgOffset);
@@ -85,6 +91,9 @@ void JUTTexture::storeTIMG(ResTIMG const* param_0, JUTPalette* param_1, GXTlut p
     if (param_0 == NULL) {
         return;
     }
+#ifdef __XSDK__
+    dusk::xbox_prompts::patch(param_0);
+#endif
     mTexInfo = param_0;
     mTexData = ((u8*)mTexInfo) + mTexInfo->imageOffset;
     if (mTexInfo->imageOffset == 0) {
